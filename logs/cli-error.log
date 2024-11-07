@@ -1,0 +1,145 @@
+2024-11-07 17:19:41 warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2024-11-07 17:19:51 warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2024-11-07 17:25:22 warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2024-11-07 17:40:42 warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2024-11-07 17:40:42 error: [InvalidArgumentException] There was a problem connecting to the database: SQLSTATE[HY000] [1045] Access denied for user 'sazpruebalizado'@'187.133.245.147' (using password: YES) in C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\PdoAdapter.php on line 98
+Stack Trace:
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\MysqlAdapter.php:158
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\PdoAdapter.php:163
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\AdapterWrapper.php:469
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\CakeAdapter.php:51
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\Phinx\CommandTrait.php:83
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Console\Command\Migrate.php:64
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\Phinx\CommandTrait.php:37
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\Phinx\Migrate.php:85
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Command\Command.php:326
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Application.php:1078
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Application.php:324
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Application.php:175
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\MigrationsCommand.php:126
+- C:\xampp\htdocs\beto_test\vendor\cakephp\cakephp\src\Console\BaseCommand.php:190
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\MigrationsCommand.php:198
+- C:\xampp\htdocs\beto_test\vendor\cakephp\cakephp\src\Console\CommandRunner.php:334
+- C:\xampp\htdocs\beto_test\vendor\cakephp\cakephp\src\Console\CommandRunner.php:172
+- C:\xampp\htdocs\beto_test\bin\cake.php:12
+- [main]:
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'sazpruebalizado'@'187.133.245.147' (using password: YES) in C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\PdoAdapter.php on line 86
+Stack Trace:
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\PdoAdapter.php:86
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\MysqlAdapter.php:158
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\PdoAdapter.php:163
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\AdapterWrapper.php:469
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\CakeAdapter.php:51
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\Phinx\CommandTrait.php:83
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Console\Command\Migrate.php:64
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\Phinx\CommandTrait.php:37
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\Phinx\Migrate.php:85
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Command\Command.php:326
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Application.php:1078
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Application.php:324
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Application.php:175
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\MigrationsCommand.php:126
+- C:\xampp\htdocs\beto_test\vendor\cakephp\cakephp\src\Console\BaseCommand.php:190
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\MigrationsCommand.php:198
+- C:\xampp\htdocs\beto_test\vendor\cakephp\cakephp\src\Console\CommandRunner.php:334
+- C:\xampp\htdocs\beto_test\vendor\cakephp\cakephp\src\Console\CommandRunner.php:172
+- C:\xampp\htdocs\beto_test\bin\cake.php:12
+- [main]:
+
+2024-11-07 17:41:26 warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2024-11-07 17:41:26 error: [InvalidArgumentException] There was a problem connecting to the database: SQLSTATE[HY000] [1045] Access denied for user 'sazpruebalizado'@'187.133.245.147' (using password: YES) in C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\PdoAdapter.php on line 98
+Stack Trace:
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\MysqlAdapter.php:158
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\PdoAdapter.php:163
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\AdapterWrapper.php:469
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\CakeAdapter.php:51
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\Phinx\CommandTrait.php:83
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Console\Command\Migrate.php:64
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\Phinx\CommandTrait.php:37
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\Phinx\Migrate.php:85
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Command\Command.php:326
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Application.php:1078
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Application.php:324
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Application.php:175
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\MigrationsCommand.php:126
+- C:\xampp\htdocs\beto_test\vendor\cakephp\cakephp\src\Console\BaseCommand.php:190
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\MigrationsCommand.php:198
+- C:\xampp\htdocs\beto_test\vendor\cakephp\cakephp\src\Console\CommandRunner.php:334
+- C:\xampp\htdocs\beto_test\vendor\cakephp\cakephp\src\Console\CommandRunner.php:172
+- C:\xampp\htdocs\beto_test\bin\cake.php:12
+- [main]:
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'sazpruebalizado'@'187.133.245.147' (using password: YES) in C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\PdoAdapter.php on line 86
+Stack Trace:
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\PdoAdapter.php:86
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\MysqlAdapter.php:158
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\PdoAdapter.php:163
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\AdapterWrapper.php:469
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\CakeAdapter.php:51
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\Phinx\CommandTrait.php:83
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Console\Command\Migrate.php:64
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\Phinx\CommandTrait.php:37
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\Phinx\Migrate.php:85
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Command\Command.php:326
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Application.php:1078
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Application.php:324
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Application.php:175
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\MigrationsCommand.php:126
+- C:\xampp\htdocs\beto_test\vendor\cakephp\cakephp\src\Console\BaseCommand.php:190
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\MigrationsCommand.php:198
+- C:\xampp\htdocs\beto_test\vendor\cakephp\cakephp\src\Console\CommandRunner.php:334
+- C:\xampp\htdocs\beto_test\vendor\cakephp\cakephp\src\Console\CommandRunner.php:172
+- C:\xampp\htdocs\beto_test\bin\cake.php:12
+- [main]:
+
+2024-11-07 17:41:36 warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2024-11-07 17:46:55 warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2024-11-07 17:47:40 warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2024-11-07 17:47:40 error: [InvalidArgumentException] There was a problem connecting to the database: SQLSTATE[HY000] [1045] Access denied for user 'sazpruebalizado'@'187.133.245.147' (using password: YES) in C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\PdoAdapter.php on line 98
+Stack Trace:
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\MysqlAdapter.php:158
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\PdoAdapter.php:163
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\AdapterWrapper.php:469
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\CakeAdapter.php:51
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\Phinx\CommandTrait.php:83
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Console\Command\Migrate.php:64
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\Phinx\CommandTrait.php:37
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\Phinx\Migrate.php:85
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Command\Command.php:326
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Application.php:1078
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Application.php:324
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Application.php:175
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\MigrationsCommand.php:126
+- C:\xampp\htdocs\beto_test\vendor\cakephp\cakephp\src\Console\BaseCommand.php:190
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\MigrationsCommand.php:198
+- C:\xampp\htdocs\beto_test\vendor\cakephp\cakephp\src\Console\CommandRunner.php:334
+- C:\xampp\htdocs\beto_test\vendor\cakephp\cakephp\src\Console\CommandRunner.php:172
+- C:\xampp\htdocs\beto_test\bin\cake.php:12
+- [main]:
+
+Caused by: [PDOException] SQLSTATE[HY000] [1045] Access denied for user 'sazpruebalizado'@'187.133.245.147' (using password: YES) in C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\PdoAdapter.php on line 86
+Stack Trace:
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\PdoAdapter.php:86
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\MysqlAdapter.php:158
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\PdoAdapter.php:163
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Db\Adapter\AdapterWrapper.php:469
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\CakeAdapter.php:51
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\Phinx\CommandTrait.php:83
+- C:\xampp\htdocs\beto_test\vendor\robmorgan\phinx\src\Phinx\Console\Command\Migrate.php:64
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\Phinx\CommandTrait.php:37
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\Phinx\Migrate.php:85
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Command\Command.php:326
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Application.php:1078
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Application.php:324
+- C:\xampp\htdocs\beto_test\vendor\symfony\console\Application.php:175
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\MigrationsCommand.php:126
+- C:\xampp\htdocs\beto_test\vendor\cakephp\cakephp\src\Console\BaseCommand.php:190
+- C:\xampp\htdocs\beto_test\vendor\cakephp\migrations\src\Command\MigrationsCommand.php:198
+- C:\xampp\htdocs\beto_test\vendor\cakephp\cakephp\src\Console\CommandRunner.php:334
+- C:\xampp\htdocs\beto_test\vendor\cakephp\cakephp\src\Console\CommandRunner.php:172
+- C:\xampp\htdocs\beto_test\bin\cake.php:12
+- [main]:
+
+2024-11-07 17:51:07 warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
+2024-11-07 19:16:02 warning: DebugKit not enabled. You need to either install pdo_sqlite, or define the "debug_kit" connection name.
