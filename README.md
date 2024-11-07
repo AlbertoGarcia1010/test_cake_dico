@@ -21,6 +21,7 @@ El archivo de la Base de datos se encuentra dentro del proyecto en la carpeta DB
 ## Improvments
 
 Por motivos de desconocimiento del equipo y sus configuraciones, tuve un retraso del tiempo, 
-lo que derivo que no concluyera la prueba.
+lo que derivo que no concluyera en su totalidad la prueba, por lo que la mayoría de los 
+modulos estan inconclusos.
 
-Nota: se estará subiendo el total de esta en el transcurso del día
+Nota: se estará subiendo la totalidad del proyecto y de la prueba en los proximos días.
