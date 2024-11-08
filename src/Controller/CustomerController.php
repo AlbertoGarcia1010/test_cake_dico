@@ -24,12 +24,6 @@ class CustomerController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
-
-        /*
-         * Enable the following component for recommended CakePHP form protection settings.
-         * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
-         */
-        //$this->loadComponent('FormProtection');
     }
 
     public function index() {
@@ -57,14 +51,16 @@ class CustomerController extends Controller
             }else{
                 $query = $this->Customer->find()->where([
                     'OR' => [
-                        'Customer.name LIKE' => '%'. $search .'%',
-                        'Customer.description LIKE' => '%'. $search .'%',
+                        'Customer.nombre LIKE' => '%'. $search .'%',
+                        'Customer.apellido LIKE' => '%'. $search .'%',
+                        'Customer.direccion LIKE' => '%'. $search .'%',
+                        'Customer.email LIKE' => '%'. $search .'%',
+                        'Customer.usuario LIKE' => '%'. $search .'%',
                     ]
                 ]);
             }
             
             Log::info("Query: $query");
-            //$query = $rolesTable->find()->where(['Roles.is_visible' => 1]);
 
             // Get total number of filtered records
             $totalFiltered = $query->count();
@@ -86,7 +82,6 @@ class CustomerController extends Controller
                     $customer->email,
                     $customer->usuario,
                     $customer->fecha_nacimiento,
-                    //$customer->created->format('Y-m-d H:i:s')
                 ];
             }
 
@@ -106,6 +101,31 @@ class CustomerController extends Controller
             $response = ['success' => true, 'metadata' => ['id' => -2, 'message' => 'Ocurrio un error']];
         }
 
+        $this->response = $this->response->withType('application/json; charset=UTF-8');
+		$this->response = $this->response->withStringBody(json_encode($response));
+        
+        return $this->response;
+    }
+
+    public function getById(){
+        
+        try{
+            Log::info( "Controller: ".$this->request->getParam('controller')."| Action: ".$this->request->getParam('action')."| IP: ".$this->request->clientIp()."| URL: ".$this->request->getUri()."| isAjax: ".($this->request->is('ajax') ? "Y":"N")."|isJson: ".($this->request->is('json') ? "Y":"N")."| Agent: " . $this->request->getHeaderLine('User-Agent'));
+            
+            $this->viewBuilder()->disableAutoLayout();
+            $idCustomer = $this->request->getQuery('idCustomer');
+            Log::info("idCustomer: $idCustomer");
+
+            $customer = $this->Customer->get($idCustomer);
+            Log::info("customer: $customer");
+
+            $response = ['success' => true, 'metadata' => ['id' => 1, 'message' => 'Request was successful'], 'data' => $customer];
+            
+        } catch (Exception $e) {
+            Log::warning("Exception|Code: " . $e->getCode() . "|Line: " . $e->getLine() . "|Msg: " . $e->getMessage());
+            $response = ['success' => true, 'metadata' => ['id' => -2, 'message' => 'Ocurrio un error']];
+        }
+        
         $this->response = $this->response->withType('application/json; charset=UTF-8');
 		$this->response = $this->response->withStringBody(json_encode($response));
         
@@ -134,5 +154,86 @@ class CustomerController extends Controller
         } catch (Exception $e) {
             $response = ['success' => true, 'metadata' => ['id' => -2, 'message' => 'Ocurrio un error']];
         }
+    }
+
+    public function update(){
+        
+        try{
+            Log::info( "Controller: ".$this->request->getParam('controller')."| Action: ".$this->request->getParam('action')."| IP: ".$this->request->clientIp()."| URL: ".$this->request->getUri()."| isAjax: ".($this->request->is('ajax') ? "Y":"N")."|isJson: ".($this->request->is('json') ? "Y":"N")."| Agent: " . $this->request->getHeaderLine('User-Agent'));
+            
+            $this->viewBuilder()->disableAutoLayout();
+            $idCustomer = $this->request->getData('idCustomer');
+            $name = $this->request->getData('nameEdit');
+            $apellido = $this->request->getData('lastNameEdit');
+            $direccion = $this->request->getData('addressEdit');
+            $email = $this->request->getData('emailEdit');
+            $usuario = $this->request->getData('userEdit');
+            $fechaNacimiento = $this->request->getData('bornDateEdit');
+
+            Log::info("idCustomer: $idCustomer");
+
+            $customer = $this->Customer->get($idCustomer);
+            $customer->nombre = $name;
+            $customer->apellido = $apellido;
+            $customer->direccion = $direccion;
+            $customer->email = $email;
+            $customer->usuario = $usuario;
+            $customer->fecha_nacimiento = $fechaNacimiento;
+
+            Log::info("customer: $customer");
+
+            if($this->request->is('post')){
+                $customer = $this->Customer->patchEntity($customer, $this->request->getData());
+    
+                if($this->Customer->save($customer)){
+                    $this->Flash->success(__('Se han guardado los datos.'));
+                }
+    
+                $this->Flash->error(__('Hubo un error al guardar los datos'));
+            }
+    
+            $this->set(compact('customer'));
+            $response = ['success' => true, 'metadata' => ['id' => 1, 'message' => 'Request was successful'], 'data' => $customer];
+            
+        } catch (Exception $e) {
+            Log::warning("Exception|Code: " . $e->getCode() . "|Line: " . $e->getLine() . "|Msg: " . $e->getMessage());
+            $response = ['success' => true, 'metadata' => ['id' => -2, 'message' => 'Ocurrio un error']];
+        }
+        
+        $this->response = $this->response->withType('application/json; charset=UTF-8');
+		$this->response = $this->response->withStringBody(json_encode($response));
+        return $this->response;
+    }
+
+    public function delete(){
+        
+        try{
+            Log::info( "Controller: ".$this->request->getParam('controller')."| Action: ".$this->request->getParam('action')."| IP: ".$this->request->clientIp()."| URL: ".$this->request->getUri()."| isAjax: ".($this->request->is('ajax') ? "Y":"N")."|isJson: ".($this->request->is('json') ? "Y":"N")."| Agent: " . $this->request->getHeaderLine('User-Agent'));
+            
+            $this->viewBuilder()->disableAutoLayout();
+            $idCustomer = $this->request->getData('idCustomer');
+            Log::info("idCustomer: $idCustomer");
+
+            $customer = $this->Customer->get($idCustomer);
+            Log::info("customer: $customer");
+
+            if($this->request->is('post')){    
+                if($this->Customer->delete($customer)){
+                    $this->Flash->success(__('Se han eliminado los datos.'));
+                }
+    
+                $this->Flash->error(__('Hubo un error al eliminar los datos'));
+            }
+    
+            $response = ['success' => true, 'metadata' => ['id' => 1, 'message' => 'Request was successful'], 'data' => ''];
+            
+        } catch (Exception $e) {
+            Log::warning("Exception|Code: " . $e->getCode() . "|Line: " . $e->getLine() . "|Msg: " . $e->getMessage());
+            $response = ['success' => true, 'metadata' => ['id' => -2, 'message' => 'Ocurrio un error']];
+        }
+        
+        $this->response = $this->response->withType('application/json; charset=UTF-8');
+		$this->response = $this->response->withStringBody(json_encode($response));
+        return $this->response;
     }
 }

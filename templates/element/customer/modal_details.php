@@ -6,10 +6,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Nombre: <span id="name"></span></p>
-        <p>Descripción: <span id="description"></span></p>
-        <p>Status: <span id="status"></span></p>
-        <p>Fecha de creación: <span id="dateCreate"></span></p>
+        <p>Nombre Completo: <span id="completeName"></span></p>
+        <p>Dirección: <span id="address"></span></p>
+        <p>Email: <span id="email"></span></p>
+        <p>Usuario: <span id="user"></span></p>
+        <p>Fecha de Nacimiento: <span id="bornDate"></span></p>
       </div>
     </div>
   </div>
@@ -17,10 +18,34 @@
 
 <script type="text/javascript">
     
-  function viewModalDetail(idCliente){
-        console.log('viewModalDetail');
+  function viewModalDetail(idCustomer){
         $('#modalDetails').modal('show');
-        
+        $.ajax({
+            url: '/customer/get',
+            async: 'true',
+            type: 'GET',
+            dataType: 'json',
+            data: {idCustomer: idCustomer},
+            headers: {
+                'contentType': 'application/json; charset=UTF-8',
+                // 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                console.log("response: ", response);
+                
+                const customerData = response.data; 
+                $('#idRolEdit').val(customerData.id);
+                $('#completeName').text(`${customerData.nombre} ${customerData.apellido}`);
+                $('#address').text(customerData.direccion);
+                $('#email').text(customerData.email);
+                $('#user').text(customerData.usuario);
+                $('#bornDate').text(customerData.fecha_nacimiento);
+
+            },
+            error: function(xhr, status, error) {
+                // 
+            }
+        });
     }
         
 

@@ -56,6 +56,7 @@ return function (RouteBuilder $routes): void {
 
         $builder->connect('/customer', ['controller' => 'Customer', 'action' => 'index']);
         $builder->connect('/customer/getall', ['controller' => 'Customer', 'action' => 'getAll']);
+        $builder->connect('/customer/get', ['controller' => 'Customer', 'action' => 'getById']);
         $builder->connect('/customer/create', ['controller' => 'Customer', 'action' => 'create']);
 
         /*
@@ -85,6 +86,13 @@ return function (RouteBuilder $routes): void {
          */
         $builder->fallbacks();
     });
+
+    $routes->scope('/api', function (RouteBuilder $builder): void {
+        $builder->connect('/customer/update', ['controller' => 'Customer', 'action' => 'update']);
+        $builder->connect('/customer/delete', ['controller' => 'Customer', 'action' => 'delete']);
+
+    });
+
 
     /*
      * If you need a different set of middleware or none at all,
