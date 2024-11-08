@@ -67,13 +67,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
           <a class="nav-link" href="/customer">Clientes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Empleados</a>
+          <a class="nav-link" href="/employee">Empleados</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Productos</a>
+          <a class="nav-link" href="/product">Productos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Ventas</a>
+          <a class="nav-link" href="/sale">Ventas</a>
         </li>
       </ul>
     </div>

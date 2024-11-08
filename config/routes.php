@@ -59,6 +59,16 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/customer/get', ['controller' => 'Customer', 'action' => 'getById']);
         $builder->connect('/customer/create', ['controller' => 'Customer', 'action' => 'create']);
 
+        $builder->connect('/employee', ['controller' => 'Employee', 'action' => 'index']);
+        $builder->connect('/employee/getall', ['controller' => 'Employee', 'action' => 'getAll']);
+        $builder->connect('/employee/get', ['controller' => 'Employee', 'action' => 'getById']);
+        $builder->connect('/employee/create', ['controller' => 'Employee', 'action' => 'create']);
+
+        $builder->connect('/product', ['controller' => 'Product', 'action' => 'index']);
+        $builder->connect('/product/getall', ['controller' => 'Product', 'action' => 'getAll']);
+        $builder->connect('/product/get', ['controller' => 'Product', 'action' => 'getById']);
+        $builder->connect('/product/create', ['controller' => 'Product', 'action' => 'create']);
+
         /*
          * Here, we are connecting '/' (base path) to a controller called 'Pages',
          * its action called 'display', and we pass a param to select the view file
@@ -90,6 +100,12 @@ return function (RouteBuilder $routes): void {
     $routes->scope('/api', function (RouteBuilder $builder): void {
         $builder->connect('/customer/update', ['controller' => 'Customer', 'action' => 'update']);
         $builder->connect('/customer/delete', ['controller' => 'Customer', 'action' => 'delete']);
+
+        $builder->connect('/employee/update', ['controller' => 'Employee', 'action' => 'update']);
+        $builder->connect('/employee/delete', ['controller' => 'Employee', 'action' => 'delete']);
+
+        $builder->connect('/product/update', ['controller' => 'Product', 'action' => 'update']);
+        $builder->connect('/product/delete', ['controller' => 'Product', 'action' => 'delete']);
 
     });
 
