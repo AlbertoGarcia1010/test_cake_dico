@@ -52,6 +52,8 @@ return function (RouteBuilder $routes): void {
 
     $routes->scope('/', function (RouteBuilder $builder): void {
         $builder->connect('/', ['controller' => 'Home', 'action' => 'home']);
+        $builder->connect('/home/money', ['controller' => 'Home', 'action' => 'banxico']);
+
         $builder->connect('/customer', ['controller' => 'Customer', 'action' => 'index']);
         $builder->connect('/customer/getall', ['controller' => 'Customer', 'action' => 'getAll']);
         $builder->connect('/customer/create', ['controller' => 'Customer', 'action' => 'create']);
