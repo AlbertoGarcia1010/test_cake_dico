@@ -1,3 +1,8 @@
+create database test_cake_dico_db;
+
+use test_cake_dico_db;
+
+
 CREATE TABLE cliente (
 id int,
 nombre varchar(45),
@@ -37,7 +42,7 @@ created_at Timestamp,
 updated_at Datetime,
 PRIMARY KEY (id),
 FOREIGN KEY (id_empleado) REFERENCES empleado (id),
-FOREIGN KEY (id_cliente) REFERENCES cliente (id),
+FOREIGN KEY (id_cliente) REFERENCES cliente (id)
 );
 
 CREATE INDEX empleado_idx
@@ -71,7 +76,7 @@ created_at Timestamp,
 updated_at Datetime,
 PRIMARY KEY (id),
 FOREIGN KEY (id_venta) REFERENCES venta (id),
-FOREIGN KEY (id_producto) REFERENCES producto (upc),
+FOREIGN KEY (id_producto) REFERENCES producto (upc)
 );
 
 CREATE INDEX venta_idx

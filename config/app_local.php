@@ -43,12 +43,12 @@ return [
              * MySQL on MAMP uses port 8889, MAMP users will want to uncomment
              * the following line and set the port accordingly
              */
-            //'port' => 'non_standard_port_number',
+            'port' => '3306',
 
-            'username' => 'cakephp',
-            'password' => 'cakephp',
+            'username' => 'root',
+            'password' => '',
 
-            'database' => 'cakephpapp',
+            'database' => 'test_cake_dico_db',
             /*
              * If not using the default 'public' schema with the PostgreSQL driver
              * set it here.
