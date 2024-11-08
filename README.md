@@ -54,6 +54,54 @@ modulos estan inconclusos.
 
 Nota: se estará subiendo la totalidad del proyecto y de la prueba en los proximos días.
 
+# Tasks Prueba
+**Modulos**
+- **Home Page**
+  
+✅ Mostrar Tipo de Cambio Actual consumiendo API de Banxico
+
+- **Clientes**
+
+✅ Create
+
+✅ Read
+
+✅ Update
+
+✅ Delete
+
+- **Empleados**
+  
+⏳ Create
+
+⏳ Read
+
+⏳ Update
+
+⏳ Delete
+
+- **Productos**
+
+⏳ Create
+
+⏳ Read
+
+⏳ Update
+
+⏳ Delete
+
+- **Ventas**
+
+⏳ Crear Venta
+
+⏳ Agregar Productos a la Venta
+
+⏳ Cobrar Venta
+
+⏳ Cancelar Venta
+
+⏳ Consultar Venta
+
 
 
 
