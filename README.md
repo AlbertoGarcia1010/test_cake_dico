@@ -72,23 +72,23 @@ Nota: se estará subiendo la totalidad del proyecto y de la prueba en los proxim
 
 - **Empleados**
   
-⏳ Create
+✅ Create
 
-⏳ Read
+✅ Read
 
-⏳ Update
+✅ Update
 
-⏳ Delete
+✅ Delete
 
 - **Productos**
 
-⏳ Create
+✅ Create
 
-⏳ Read
+✅ Read
 
-⏳ Update
+✅ Update
 
-⏳ Delete
+✅ Delete
 
 - **Ventas**
 
