@@ -37,6 +37,15 @@
 
 <?= $this->Form->end() ?>
 <br>
+<div class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="d-flex">
+    <div class="toast-body">
+      No es posible agregar más productos
+    </div>
+    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+</div>
+<br>
 <table id="sale-details-table" class="display">
     <thead>
         <tr>
@@ -51,6 +60,7 @@
 
 <script type="text/javascript">
     function onDecreaseProduct(idSale, idProduct, cantidad){
+        console.log('cantidad: ', cantidad)
         if(cantidad > 0){
             $.ajax({
                 url: '/api/saledetail/decrease',
@@ -75,29 +85,37 @@
         
     }
 
-    function onIncreaseProduct(idSale, idProduct){
-        $.ajax({
-            url: '/api/saledetail/increase',
-            async: 'true',
-            type: 'POST',
-            dataType: 'json',
-            data: {idSale: idSale, idProduct: idProduct},
-            headers: {
-                'contentType': 'application/json; charset=UTF-8',
-                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function(response) {
-                console.log("response: ", response);
+    function onIncreaseProduct(idSale, idProduct, cantidad, existencia){
+        if(cantidad < existencia){
+            $.ajax({
+                url: '/api/saledetail/increase',
+                async: 'true',
+                type: 'POST',
+                dataType: 'json',
+                data: {idSale: idSale, idProduct: idProduct},
+                headers: {
+                    'contentType': 'application/json; charset=UTF-8',
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    console.log("response: ", response);
 
-                $('#sale-details-table').DataTable().ajax.reload();
-            },
-            error: function(xhr, status, error) {
-                // 
-            }
-        });
+                    $('#sale-details-table').DataTable().ajax.reload();
+                },
+                error: function(xhr, status, error) {
+                    // 
+                }
+            });
+        }else{
+            var myToast = document.querySelector('.toast');
+            var toast = new bootstrap.Toast(myToast);
+            toast.show();
+        }
+        
     }
     $(document).ready( function () {
-        let idSale = 16;
+        
+        let idSale = <?=  $newSaleId ?>;
         $('#sale-details-table').DataTable({ 
             'ajax': {
                 "datatype": "json",
@@ -147,7 +165,7 @@
                 {
                 "render": function (data, type, full, meta) {
                     console.log("full", full)
-                    return `<a class="btn btn-danger" id="viewDetailsBtn" onclick="onDecreaseProduct(${full[1]}, '${full[2]}, ${full[4]}')" role="button"><i class="material-icons center">remove</i></a>&nbsp<span>${full[4]}</span>&nbsp<a class="btn btn-success" onclick="onIncreaseProduct(${full[1]}, '${full[2]}')" role="button"><i class="material-icons center">add</i></a>`;
+                    return `<a class="btn btn-danger" id="viewDetailsBtn" onclick="onDecreaseProduct(${full[1]}, '${full[2]}', ${full[4]})" role="button"><i class="material-icons center">remove</i></a>&nbsp<span>${full[4]}</span>&nbsp<a class="btn btn-success" onclick="onIncreaseProduct(${full[1]}, '${full[2]}', ${full[4]}, ${full[7]})" role="button"><i class="material-icons center">add</i></a>`;
 
                     }
                 }
