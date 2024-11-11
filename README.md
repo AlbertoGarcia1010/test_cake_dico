@@ -92,9 +92,9 @@ Nota: se estará subiendo la totalidad del proyecto y de la prueba en los proxim
 
 - **Ventas**
 
-⏳ Crear Venta
+✅ Crear Venta
 
-⏳ Agregar Productos a la Venta
+✅ Agregar Productos a la Venta
 
 ⏳ Cobrar Venta
 
