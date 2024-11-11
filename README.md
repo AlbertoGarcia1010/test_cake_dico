@@ -96,9 +96,9 @@ Nota: se estará subiendo la totalidad del proyecto y de la prueba en los proxim
 
 ✅ Agregar Productos a la Venta
 
-⏳ Cobrar Venta
+✅ Cobrar Venta
 
-⏳ Cancelar Venta
+✅ Cancelar Venta
 
 ⏳ Consultar Venta
 
