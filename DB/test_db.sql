@@ -84,3 +84,23 @@ ON venta_detalle (id_venta);
 
 CREATE INDEX producto_idx
 ON venta_detalle (id_producto);
+
+ALTER TABLE venta DROP FOREIGN KEY venta_ibfk_2;
+
+ALTER TABLE cliente MODIFY COLUMN id int(11) auto_increment NOT NULL;
+
+ALTER TABLE venta 
+ADD CONSTRAINT venta_ibfk_2 FOREIGN KEY (id_cliente) REFERENCES cliente(id);
+
+ALTER TABLE venta DROP FOREIGN KEY venta_ibfk_1;
+
+ALTER TABLE empleado MODIFY COLUMN id int(11) auto_increment NOT NULL;
+
+ALTER TABLE venta 
+ADD CONSTRAINT venta_ibfk_1 FOREIGN KEY (id_empleado) REFERENCES empleado(id);
+
+
+ALTER TABLE venta_detalle DROP FOREIGN KEY venta_detalle_ibfk_1;
+ALTER TABLE venta MODIFY COLUMN id int(11) auto_increment NOT NULL;
+ALTER TABLE venta_detalle 
+ADD CONSTRAINT venta_detalle_ibfk_1 FOREIGN KEY (id_venta) REFERENCES venta(id);

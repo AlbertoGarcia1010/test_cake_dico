@@ -69,6 +69,13 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/product/get', ['controller' => 'Product', 'action' => 'getById']);
         $builder->connect('/product/create', ['controller' => 'Product', 'action' => 'create']);
 
+        $builder->connect('/sale', ['controller' => 'Sale', 'action' => 'index']);
+        $builder->connect('/sale/create', ['controller' => 'Sale', 'action' => 'create']);
+        $builder->connect('/sale/get', ['controller' => 'Sale', 'action' => 'getSaleById']);
+
+
+
+
         /*
          * Here, we are connecting '/' (base path) to a controller called 'Pages',
          * its action called 'display', and we pass a param to select the view file
@@ -106,6 +113,9 @@ return function (RouteBuilder $routes): void {
 
         $builder->connect('/product/update', ['controller' => 'Product', 'action' => 'update']);
         $builder->connect('/product/delete', ['controller' => 'Product', 'action' => 'delete']);
+
+        $builder->connect('/saledetail/increase', ['controller' => 'Sale', 'action' => 'increaseProduct']);
+        $builder->connect('/saledetail/decrease', ['controller' => 'Sale', 'action' => 'decreaseProduct']);
 
     });
 
