@@ -1,41 +1,45 @@
 <h1>Nueva Venta</h1>
+<h1>Tota: $ <span id="totalSale"></span></h1>
 
-<?= $this->Form->create($sale) ?>
-    <?= $this->Form->control('id_empleado', [
-        'type' => 'select',
-        'empty' => 'Seleccione un empleado',
-        'options' => $employees,
-        'label' => '',
-        'class' => 'form-select'
-    ]) ?>
+<div id="divForm" style="display:block;">
+    <?= $this->Form->create($sale) ?>
+        <?= $this->Form->control('id_empleado', [
+            'type' => 'select',
+            'empty' => 'Seleccione un empleado',
+            'options' => $employees,
+            'label' => '',
+            'class' => 'form-select'
+        ]) ?>
 
-    <?= $this->Form->control('id_cliente', [
-        'type' => 'select',
-        'empty' => 'Seleccione un cliente',
-        'options' => $customers,
-        'label' => '',
-        'class' => 'form-select'
-    ]) ?>
+        <?= $this->Form->control('id_cliente', [
+            'type' => 'select',
+            'empty' => 'Seleccione un cliente',
+            'options' => $customers,
+            'label' => '',
+            'class' => 'form-select'
+        ]) ?>
 
-    <?= $this->Form->control('id_producto', [
-        'type' => 'select',
-        'empty' => 'Seleccione un producto',
-        'options' => $products,
-        'label' => '',
-        'class' => 'form-select'
-    ]) ?>
+        <?= $this->Form->control('id_producto', [
+            'type' => 'select',
+            'empty' => 'Seleccione un producto',
+            'options' => $products,
+            'label' => '',
+            'class' => 'form-select'
+        ]) ?>
 
-    <?= $this->Form->control('idSale', [
-        'type' => 'text',
-        'label' => 'ID venta',
-        'value' => $newSaleId ?? 0, // Colocar el ID en el campo
-        'readonly' => true,
-        'default' => 0
-    ]); ?>
-    <br>
-    <?= $this->Form->button(__('Agregar Producto')) ?>
+        <?= $this->Form->control('idSale', [
+            'type' => 'hidden',
+            'label' => 'ID venta',
+            'value' => $newSaleId ?? 0, // Colocar el ID en el campo
+            'readonly' => true,
+            'default' => 0
+        ]); ?>
+        <br>
+        <?= $this->Form->button(__('Agregar Producto')) ?>
+    <?= $this->Form->end() ?>
+</div>
 
-<?= $this->Form->end() ?>
+
 <br>
 <div class="toast align-items-center text-white bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
   <div class="d-flex">
@@ -57,8 +61,14 @@
         </tr>
     </thead>
 </table>
+<br>
+<a class="btn btn-warning" onclick="onCancelSale()" role="button" id="btnCancelSale" style="display:none;">Cancelar Venta</a>
+<a class="btn btn-success" onclick="onChargeSale()" role="button" id="btnChargeSale" style="display:none;">Cobrar Venta</a>
+
 
 <script type="text/javascript">
+    let idSale = <?=  $newSaleId ?>;
+    let estatus = 0;
     function onDecreaseProduct(idSale, idProduct, cantidad){
         console.log('cantidad: ', cantidad)
         if(cantidad > 0){
@@ -113,13 +123,88 @@
         }
         
     }
+    
+    function onChargeSale(){
+        $.ajax({
+            url: '/api/sale/charge',
+            async: 'true',
+            type: 'POST',
+            dataType: 'json',
+            data: {'idSale': idSale},
+            headers: {
+                'contentType': 'application/json; charset=UTF-8',
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                console.log("response: ", response);
+                $('#btnChargeSale').hide();
+                $('#btnCancelSale').show();
+                estatus = 1;
+                $('#sale-details-table').DataTable().ajax.reload();
+            },
+            error: function(xhr, status, error) {
+                // 
+            }
+        });
+    }
+
+    function onCancelSale(){
+        $.ajax({
+            url: '/api/sale/cancel',
+            async: 'true',
+            type: 'POST',
+            dataType: 'json',
+            data: {'idSale': idSale},
+            headers: {
+                'contentType': 'application/json; charset=UTF-8',
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                console.log("response: ", response);
+                $('#btnCancelSale').hide();
+                estatus = 2;
+                $('#sale-details-table').DataTable().ajax.reload();
+            },
+            error: function(xhr, status, error) {
+                // 
+            }
+        });
+    }
+    
     $(document).ready( function () {
-        
-        let idSale = <?=  $newSaleId ?>;
+        $.ajax({
+            url: '/sale/get',
+            async: 'true',
+            type: 'POST',
+            dataType: 'json',
+            data: {'idSale': idSale},
+            headers: {
+                'contentType': 'application/json; charset=UTF-8',
+                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                console.log("response: ", response);
+                const sale = response.data;
+                estatus = sale.estatus;
+                $('#totalSale').text(sale.total);
+                if(sale.estatus == 0){
+                    $('#btnChargeSale').show();
+                } else if(sale.estatus == 1){
+                    $('#btnCancelSale').show();
+                }
+                if(estatus > 0){
+                    $('#divForm').hide();
+                }
+
+            },
+            error: function(xhr, status, error) {
+                // 
+            }
+        });
         $('#sale-details-table').DataTable({ 
             'ajax': {
                 "datatype": "json",
-                'url': '/sale/get',
+                'url': '/saledetail/get',
                 'dataSrc': 'data.data',
                 'data': {'idSale': idSale}
             }, 
@@ -165,12 +250,12 @@
                 {
                 "render": function (data, type, full, meta) {
                     console.log("full", full)
-                    return `<a class="btn btn-danger" id="viewDetailsBtn" onclick="onDecreaseProduct(${full[1]}, '${full[2]}', ${full[4]})" role="button"><i class="material-icons center">remove</i></a>&nbsp<span>${full[4]}</span>&nbsp<a class="btn btn-success" onclick="onIncreaseProduct(${full[1]}, '${full[2]}', ${full[4]}, ${full[7]})" role="button"><i class="material-icons center">add</i></a>`;
-
+                    return `${estatus == 0 ? `<a class="btn btn-danger" id="viewDetailsBtn" onclick="onDecreaseProduct(${full[1]}, '${full[2]}', ${full[4]})" role="button"><i class="material-icons center">remove</i></a>&nbsp<span>${full[4]}</span>&nbsp<a class="btn btn-success" onclick="onIncreaseProduct(${full[1]}, '${full[2]}', ${full[4]}, ${full[7]})" role="button"><i class="material-icons center">add</i></a>`:''}`;                        
                     }
                 }
             ]
         });
+
     });
 
 </script>

@@ -158,6 +158,30 @@ class SaleController extends Controller
             Log::info( "Controller: ".$this->request->getParam('controller')."| Action: ".$this->request->getParam('action')."| IP: ".$this->request->clientIp()."| URL: ".$this->request->getUri()."| isAjax: ".($this->request->is('ajax') ? "Y":"N")."|isJson: ".($this->request->is('json') ? "Y":"N")."| Agent: " . $this->request->getHeaderLine('User-Agent'));
             
             $this->viewBuilder()->disableAutoLayout();
+            $idSale = $this->request->getData('idSale');
+            Log::info("idSale: $idSale");
+
+            $sale = $this->Sale->get($idSale);
+            Log::info("sale: $sale");
+
+            $response = ['success' => true, 'metadata' => ['id' => 1, 'message' => 'Request was successful'], 'data' => $sale];
+        } catch (Exception $e) {
+            Log::warning("Exception|Code: " . $e->getCode() . "|Line: " . $e->getLine() . "|Msg: " . $e->getMessage());
+            $response = ['success' => true, 'metadata' => ['id' => -2, 'message' => 'Ocurrio un error']];
+        }
+        
+        $this->response = $this->response->withType('application/json; charset=UTF-8');
+		$this->response = $this->response->withStringBody(json_encode($response));
+        
+        return $this->response;
+    }
+
+    public function getSaleDetailByIdSale(){
+        
+        try{
+            Log::info( "Controller: ".$this->request->getParam('controller')."| Action: ".$this->request->getParam('action')."| IP: ".$this->request->clientIp()."| URL: ".$this->request->getUri()."| isAjax: ".($this->request->is('ajax') ? "Y":"N")."|isJson: ".($this->request->is('json') ? "Y":"N")."| Agent: " . $this->request->getHeaderLine('User-Agent'));
+            
+            $this->viewBuilder()->disableAutoLayout();
             $saleDetailTable = TableRegistry::getTableLocator()->get('SaleDetail');
 
             $idSale = $this->request->getQuery('idSale');
@@ -170,7 +194,6 @@ class SaleController extends Controller
 
             $query = $this->SaleDetail->find('all')
             ->contain(['Product'])
-
             ->where(['SaleDetail.id_venta' => $idSale]);
             
 
@@ -316,5 +339,91 @@ class SaleController extends Controller
         }catch(Exception $e) {
 
         }
+    }
+
+    public function chargeSale(){
+        try{
+            $idSale = $this->request->getData('idSale');
+            $sale = $this->Sale->newEmptyEntity();
+            
+            //Change estatus to 1
+            $saleData = $this->Sale->get($idSale);
+            $sale->id = $saleData->id;
+            $sale->estatus = 1; 
+
+            if($this->Sale->save($sale)){
+                //decrease Products to Inventory
+                // get All Products
+                $query = $this->SaleDetail->find('all')
+                ->contain(['Product'])
+                ->where(['SaleDetail.id_venta' => $idSale]);
+
+                $saleDetails = $query->all()->toArray();
+                Log::info("SaleDetails: ".json_encode($saleDetails));
+
+                foreach ($saleDetails as $saleDetail) {
+                    $idProduct = $saleDetail->id_producto;
+                    $product = $this->Product->get($idProduct);
+                    $product->existencia = $product->existencia - $saleDetail->cantidad;
+                    if($this->Product->save($product)){
+                        $this->Flash->success(__('Se han guardado los datos.'));
+                    }
+                    $this->Flash->error(__('Hubo un error al guardar los datos'));
+                }
+            }
+            // if all is success
+            $response = ['success' => true, 'metadata' => ['id' => 1, 'message' => 'Request was successful'], 'data' => ''];
+
+        }catch(Exception $e){
+            $response = ['success' => false, 'metadata' => ['id' => -2, 'message' => 'Request was successful'], 'data' => ''];
+        }
+
+        $this->response = $this->response->withType('application/json; charset=UTF-8');
+		$this->response = $this->response->withStringBody(json_encode($response));
+        
+        return $this->response;
+    }
+
+    public function cancelSale(){
+        try{
+            $idSale = $this->request->getData('idSale');
+            $sale = $this->Sale->newEmptyEntity();
+            
+            //Change estatus to 1
+            $saleData = $this->Sale->get($idSale);
+            $sale->id = $saleData->id;
+            $sale->estatus = 2; 
+
+            if($this->Sale->save($sale)){
+                //decrease Products to Inventory
+                // get All Products
+                $query = $this->SaleDetail->find('all')
+                ->contain(['Product'])
+                ->where(['SaleDetail.id_venta' => $idSale]);
+
+                $saleDetails = $query->all()->toArray();
+                Log::info("SaleDetails: ".json_encode($saleDetails));
+
+                foreach ($saleDetails as $saleDetail) {
+                    $idProduct = $saleDetail->id_producto;
+                    $product = $this->Product->get($idProduct);
+                    $product->existencia = $product->existencia + $saleDetail->cantidad;
+                    if($this->Product->save($product)){
+                        $this->Flash->success(__('Se han guardado los datos.'));
+                    }
+                    $this->Flash->error(__('Hubo un error al guardar los datos'));
+                }
+            }
+            // if all is success
+            $response = ['success' => true, 'metadata' => ['id' => 1, 'message' => 'Request was successful'], 'data' => ''];
+
+        }catch(Exception $e){
+            $response = ['success' => false, 'metadata' => ['id' => -2, 'message' => 'Request was successful'], 'data' => ''];
+        }
+
+        $this->response = $this->response->withType('application/json; charset=UTF-8');
+		$this->response = $this->response->withStringBody(json_encode($response));
+        
+        return $this->response;
     }
 }

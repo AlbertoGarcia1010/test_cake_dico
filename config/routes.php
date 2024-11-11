@@ -71,6 +71,7 @@ return function (RouteBuilder $routes): void {
 
         $builder->connect('/sale', ['controller' => 'Sale', 'action' => 'index']);
         $builder->connect('/sale/create', ['controller' => 'Sale', 'action' => 'create']);
+        $builder->connect('/saledetail/get', ['controller' => 'Sale', 'action' => 'getSaleDetailByIdSale']);
         $builder->connect('/sale/get', ['controller' => 'Sale', 'action' => 'getSaleById']);
 
 
@@ -116,6 +117,9 @@ return function (RouteBuilder $routes): void {
 
         $builder->connect('/saledetail/increase', ['controller' => 'Sale', 'action' => 'increaseProduct']);
         $builder->connect('/saledetail/decrease', ['controller' => 'Sale', 'action' => 'decreaseProduct']);
+
+        $builder->connect('/sale/charge', ['controller' => 'Sale', 'action' => 'chargeSale']);
+        $builder->connect('/sale/cancel', ['controller' => 'Sale', 'action' => 'cancelSale']);
 
     });
 
