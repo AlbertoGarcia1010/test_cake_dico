@@ -100,7 +100,7 @@ Nota: se estará subiendo la totalidad del proyecto y de la prueba en los proxim
 
 ✅ Cancelar Venta
 
-⏳ Consultar Venta
+✅ Consultar Venta
 
 
 
