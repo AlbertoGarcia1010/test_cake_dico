@@ -73,9 +73,7 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/sale/create', ['controller' => 'Sale', 'action' => 'create']);
         $builder->connect('/saledetail/get', ['controller' => 'Sale', 'action' => 'getSaleDetailByIdSale']);
         $builder->connect('/sale/get', ['controller' => 'Sale', 'action' => 'getSaleById']);
-
-
-
+        $builder->connect('/sale/getall', ['controller' => 'Sale', 'action' => 'getAll']);
 
         /*
          * Here, we are connecting '/' (base path) to a controller called 'Pages',

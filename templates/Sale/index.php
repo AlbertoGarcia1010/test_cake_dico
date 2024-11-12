@@ -3,19 +3,16 @@
 <table id="employee-table" class="display">
     <thead>
         <tr>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Telefono</th>
+            <th># Venta</th>
+            <th>Total</th>
+            <th>Estatus</th>
+            <th>Fecha Creacion</th>
+            <th>Fecha Ultima Actualizacion</th>
             <th>Acciones</th>
         </tr>
     </thead>
     
 </table>
-
-<?= $this->element('Employee/modal_details') ?>
-<?= $this->element('Employee/modal_edit') ?>
-<?= $this->element('Employee/modal_delete') ?>
-
 
 <script type="text/javascript">
 
@@ -24,7 +21,7 @@
         $('#employee-table').DataTable({ 
             'ajax': {
                 "datatype": "json",
-                'url': '/employee/getall',
+                'url': '/sale/getall',
                 'dataSrc': 'data.data'
             }, 
             "destroy": true,   
@@ -36,16 +33,33 @@
             },      
             "order": [],
             "columns": [
-                { "data": 1 },  // nombre
-                { "data": 2 },  // apellido
-                { "data": 3 },  // telefono
+                { "data": 0 },  // ID
+                { "data": 3 },  // Total
+                { "data": 5 },  // Fecha Creacion
+                { "data": 6 },  // Fecha Actualizacion
+                { // estatus
+                "render": function (data, type, full, meta) {
+                    console.log("full", full)
+                    let txtStatus = "Abierto";
+                    let colorStatus = "primary";
+                    if(full[4] == 1){
+                        txtStatus = "Pagado";
+                        colorStatus = "success";
+                    } else if(full[4] == 2){
+                        txtStatus = "Cancelado";
+                        colorStatus = "danger";
+                    }
+                    return `<span class="badge bg-${colorStatus}">${txtStatus}</span>`;
+                    }
+                },
                 {
                 "render": function (data, type, full, meta) {
                     console.log("full", full)
-                    return `<a class="btn btn-primary" id="viewDetailsBtn" onclick="viewModalDetail(${full[0]})" role="button"><i class="material-icons center">visibility</i></a>&nbsp<a class="btn btn-warning" href="#modalEdit" onclick="viewModalEdit(${full[0]})" role="button"><i class="material-icons center">edit</i></a>&nbsp<a class="btn btn-danger" onclick="viewModalDelete(${full[0]})" role="button"><i class="material-icons center">delete</i></a>`;
+                    
+                    return `<a class="btn btn-primary" id="viewDetailsBtn" href="/sale/create?newSaleId=${full[0]}" role="button"><i class="material-icons center">visibility</i></a>`;
 
+                    }
                 }
-            }
             ]
         })
     } );

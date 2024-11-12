@@ -426,4 +426,78 @@ class SaleController extends Controller
         
         return $this->response;
     }
+
+    public function getAll(){
+        
+        try{
+            Log::info( "Controller: ".$this->request->getParam('controller')."| Action: ".$this->request->getParam('action')."| IP: ".$this->request->clientIp()."| URL: ".$this->request->getUri()."| isAjax: ".($this->request->is('ajax') ? "Y":"N")."|isJson: ".($this->request->is('json') ? "Y":"N")."| Agent: " . $this->request->getHeaderLine('User-Agent'));
+            
+            $this->viewBuilder()->disableAutoLayout();
+            
+            $saleTable = TableRegistry::getTableLocator()->get('Sale');
+
+            // Get query parameters sent by DataTables
+            $start = $this->request->getQuery('start');
+            $length = $this->request->getQuery('length');
+            $search = $this->request->getQuery('search')['value'];
+            Log::info("search: $search");
+
+
+            if($search == null){
+                $query = $this->Sale->find('all');
+            }else{
+                $query = $this->Sale->find()->where([
+                    'OR' => [
+                        'Sale.created_at LIKE' => '%'. $search .'%',
+                        'Sale.updated_at LIKE' => '%'. $search .'%',
+                    ]
+                ]);
+            }
+            
+            Log::info("Query: $query");
+
+            // Get total number of filtered records
+            $totalFiltered = $query->count();
+
+            // Get total number of records in the table
+            $totalData = $saleTable->find()->count();
+
+            // Get the actual data
+            $sales = $query->all()->toArray();
+            Log::info("Sales: ".json_encode($sales));
+
+            $data = [];
+            foreach ($sales as $sale) {
+                $data[] = [
+                    $sale->id,
+                    $sale->id_empleado,
+                    $sale->id_cliente,
+                    $sale->total,
+                    $sale->estatus,
+                    $sale->created_at,
+                    $sale->updated_at
+                ];
+            }
+
+            // Return the data in JSON format
+            $jsonData = [
+                "draw" => intval($this->request->getQuery('draw')), // Draw counter sent by DataTables
+                "recordsTotal" => $totalData, // Total number of records
+                "recordsFiltered" => $totalFiltered, // Number of filtered records
+                "data" => $data // Actual data to display
+            ];
+            
+    
+            $response = ['success' => true, 'metadata' => ['id' => 1, 'message' => 'Request was successful'], 'data' => $jsonData];
+            
+        } catch (Exception $e) {
+            Log::warning("Exception|Code: " . $e->getCode() . "|Line: " . $e->getLine() . "|Msg: " . $e->getMessage());
+            $response = ['success' => true, 'metadata' => ['id' => -2, 'message' => 'Ocurrio un error']];
+        }
+
+        $this->response = $this->response->withType('application/json; charset=UTF-8');
+		$this->response = $this->response->withStringBody(json_encode($response));
+        
+        return $this->response;
+    }
 }
